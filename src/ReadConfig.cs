@@ -1,6 +1,6 @@
 ﻿public static class ConfigHelper
 {
-    public static (string endpointStr, string agentId) ReadConfig()
+    public static (string endpointStr, string agentId, string tenantId) ReadConfig()
     {
         Console.WriteLine("Reading configuration settings...");
         var config = new ConfigurationBuilder()
@@ -12,6 +12,7 @@
 
         string? endpointStr = config["Foundry:ProjectEndpoint"];
         string? agentId = config["Foundry:AgentId"];
+        string? tenantId = config["VisualStudioTenantId"];
 
         if (string.IsNullOrWhiteSpace(endpointStr) || string.IsNullOrWhiteSpace(agentId))
         {
@@ -19,6 +20,6 @@
             Environment.Exit(1);
         }
 
-        return (endpointStr, agentId);
+        return (endpointStr, agentId, tenantId);
     }
 }

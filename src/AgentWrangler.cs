@@ -1,10 +1,11 @@
 ﻿public static class AgentWrangler
 {
-    public static async Task SetupAgent(string endpointStr, string agentId)
+    public static async Task SetupAgent(string endpointStr, string agentId, string tenantId)
     {
         Console.WriteLine($"Contacting agent at {endpointStr}...");
         var endpoint = new Uri(endpointStr);
-        AIProjectClient projectClient = new(endpoint, new DefaultAzureCredential());
+        var creds = CredentialsHelper.GetCredentials(tenantId);
+        AIProjectClient projectClient = new(endpoint, creds);
         PersistentAgentsClient agentsClient = projectClient.GetPersistentAgentsClient();
         PersistentAgent agent = agentsClient.Administration.GetAgent(agentId);
 
@@ -17,11 +18,11 @@
 
         DateTimeOffset? lastMessageShown = await SendMessageAndShowResponse(agentsClient, thread, agent, "Hello Agent - tell me about yourself!", null);
 
-        string userInput = AgentHelpers.GetUserInput();
+        string userInput = Utilities.GetUserInput();
         while (!string.IsNullOrEmpty(userInput))
         {
             lastMessageShown = await SendMessageAndShowResponse(agentsClient, thread, agent, userInput, lastMessageShown);
-            userInput = AgentHelpers.GetUserInput();
+            userInput = Utilities.GetUserInput();
         }
     }
 
@@ -29,7 +30,7 @@
     {
         if (string.IsNullOrEmpty(message)) return lastTimestamp;
         await SendMessageToAgent(agentsClient, thread, agent, message);
-        return AgentHelpers.ShowRecentMessages(agentsClient, thread, lastTimestamp);
+        return Utilities.ShowRecentMessages(agentsClient, thread, lastTimestamp);
     }
 
     private static async Task SendMessageToAgent(PersistentAgentsClient agentsClient, PersistentAgentThread thread, PersistentAgent agent, string message)

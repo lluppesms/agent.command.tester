@@ -1,3 +1,4 @@
+global using agent.command.tester;
 global using Azure;
 global using Azure.Identity;
 global using Azure.AI.Projects;

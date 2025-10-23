@@ -1,4 +1,4 @@
-﻿public static class AgentHelpers
+﻿public static class Utilities
 {
     public static string GetUserInput()
     {
