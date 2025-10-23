@@ -4,7 +4,7 @@
     {
         Console.WriteLine($"Contacting agent at {endpointStr}...");
         var endpoint = new Uri(endpointStr);
-        var creds = CredentialsHelper.GetCredentials(tenantId);
+        var creds = Utilities.GetCredentials(tenantId);
         AIProjectClient projectClient = new(endpoint, creds);
         PersistentAgentsClient agentsClient = projectClient.GetPersistentAgentsClient();
         PersistentAgent agent = agentsClient.Administration.GetAgent(agentId);
