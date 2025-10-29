@@ -18,13 +18,17 @@
     }
     public static void DisplayMessage(MessageRole role, DateTimeOffset createdAt, string message)
     {
-        var prevColor = Console.ForegroundColor;
-        Console.ForegroundColor = role == MessageRole.User ? ConsoleColor.Green : ConsoleColor.Blue;
-        Console.Write($"{createdAt:hh:mm:ss} - {role,10}: ");
-        Console.ForegroundColor = role == MessageRole.User ? ConsoleColor.Green : ConsoleColor.Blue;
-        Console.WriteLine(message);
-        Console.WriteLine();
-        Console.ForegroundColor = prevColor;
+        if (role == MessageRole.User)
+            AnsiConsole.MarkupLine($"{createdAt:hh:mm:ss}" + Emoji.Known.Person + $"  [green]{message}[/] ");
+        else
+            AnsiConsole.MarkupLine($"{createdAt:hh:mm:ss}" + Emoji.Known.Alien + $"  [cyan]{message}[/] ");
+        //var prevColor = Console.ForegroundColor;
+        //Console.ForegroundColor = role == MessageRole.User ? ConsoleColor.Green : ConsoleColor.Blue;
+        //Console.Write($"{createdAt:hh:mm:ss} - {role,10}: ");
+        //Console.ForegroundColor = role == MessageRole.User ? ConsoleColor.Green : ConsoleColor.Blue;
+        //Console.WriteLine(message);
+        //Console.WriteLine();
+        //Console.ForegroundColor = prevColor;
     }
 
     //public static DateTimeOffset? ShowRecentMessages(PersistentAgentsClient agentsClient, PersistentAgentThread thread, DateTimeOffset? lastTimestamp)

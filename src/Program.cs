@@ -1,6 +1,11 @@
 ﻿// Demo of calling an Azure Foundry Agent from a command line program
 
-Console.WriteLine("Agent Service initializing...");
+
+Console.OutputEncoding = Encoding.UTF8;
+// Display Banner
+AnsiConsole.Write(new FigletText("Agent Service Command Center").LeftJustified().Color(Color.Red));
+// Display Welcome Message
+AnsiConsole.MarkupLine("\n" + Emoji.Known.Construction + "  [yellow]Agent Service Initializing...[/]");
 
 // enter the Azure Foundry Secrets in the Foundry:ProjectEndpoint and Foundry:AgentId in your secrets or appsettings.development.json
 (var endpointStr, var agentId, var tenantId) = Utilities.ReadConfig();
