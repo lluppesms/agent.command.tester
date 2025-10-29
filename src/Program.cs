@@ -1,6 +1,5 @@
 ﻿// Demo of calling an Azure Foundry Agent from a command line program
 
-
 Console.OutputEncoding = Encoding.UTF8;
 // Display Banner
 AnsiConsole.Write(new FigletText("Agent Service Command Center").LeftJustified().Color(Color.Red));
